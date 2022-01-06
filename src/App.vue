@@ -4,7 +4,7 @@
        <div class="todo-wrap">
          <my-header :addTodo="addTodo"></my-header>
          <list :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"></list>
-         <my-footer :todos="todos"></my-footer>
+         <my-footer :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"></my-footer>
        </div>
     </div>
   </div>
@@ -42,11 +42,24 @@ export default {
         if(todo.id===id)todo.done=!todo.done
       })
     },
+    // 刪除項目
     deleteTodo(id){
       this.todos=this.todos.filter((todo)=>{
           return todo.id!==id
       })
-    }
+    },
+    // 全選或全不選
+    checkAllTodo(done){
+      this.todos.forEach((todo)=>{
+         todo.done=done
+        })
+      },
+    // 當刪除全部任務時列表清空
+    clearAllTodo(){
+      this.todos=this.todos.filter((todo)=>{
+        return !todo.done
+      })
+    } 
   }
 }
 </script>
