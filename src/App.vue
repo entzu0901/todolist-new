@@ -2,8 +2,8 @@
   <div id="app">
     <div class="todo-container">
        <div class="todo-wrap">
-         <my-header></my-header>
-         <list/>
+         <my-header :addTodo="addTodo"></my-header>
+         <list :todos="todos"></list>
          <my-footer></my-footer>
        </div>
     </div>
@@ -22,6 +22,20 @@ export default {
     myHeader,
     list
   },
+  data() {
+      return {
+        todos:[
+                {id:'001',title:'打code',done:true},
+                {id:'002',title:'看小說',done:false},
+                {id:'003',title:'學習vue全家桶',done:true}
+              ]      
+        }
+    },
+  methods:{
+    addTodo(x){
+      this.todos.unshift(x)
+    }
+  }
 }
 </script>
 
