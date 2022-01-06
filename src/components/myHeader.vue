@@ -9,6 +9,11 @@ import {nanoid} from 'nanoid'
 export default {
     name:'myHeader',
     props:['addTodo'],
+    data() {
+        return {
+            title:''
+        }
+    },
     methods:{
         add(){
             // 較驗數據
