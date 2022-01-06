@@ -1,8 +1,6 @@
 <template>
   <ul class="todo-main">
-     <item></item>
-     <item></item>
-     <item></item>
+     <item v-for="todoObj in todos" :key="todoObj.id" :todo="todoObj"/>
   </ul>
 </template>
 
@@ -12,7 +10,16 @@ export default {
     name:'list',
     components:{
         item
-    }
+    },
+    data() {
+        return {
+            todos:[
+                {id:'001',title:'打code',done:true},
+                {id:'002',title:'看小說',done:false},
+                {id:'003',title:'學習vue全家桶',done:true}
+            ]      
+        }
+    },
 }
 </script>
 
