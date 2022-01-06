@@ -5,7 +5,7 @@
               <input type="checkbox" :checked="todo.done" @click="handle(todo.id)">
               <span>{{todo.title}}</span>
           </label>
-          <button class="btn btn-danger" style="display:none">刪除</button>
+          <button class="btn btn-danger" @click="remove(todo.id)">刪除</button>
       </li>
     </div>
 </template>
@@ -13,11 +13,18 @@
 <script>
 export default {
     name:'item',
-    props:['todo','checkTodo'],
+    props:['todo','checkTodo','deleteTodo'],
     methods:{
+        // 勾選or取消勾選
         handle(id){
             // 通知app組件將對應的todo對象中的done值取反
             this.checkTodo(id)
+        },
+        // 刪除
+        remove(id){
+            if(confirm('確認刪除嗎')){
+                this.deleteTodo(id)
+            }
         }
     }
 }
@@ -52,5 +59,10 @@ export default {
     li:last-child{
         border-bottom: none;
     }
-
+    li:hover{
+        background-color: #ddd;
+    }
+    li:hover button{
+       display: block;
+    }
 </style>
