@@ -4,7 +4,7 @@
        <div class="todo-wrap">
          <my-header :addTodo="addTodo"></my-header>
          <list :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"></list>
-         <my-footer></my-footer>
+         <my-footer :todos="todos"></my-footer>
        </div>
     </div>
   </div>
