@@ -1,104 +1,47 @@
 <template>
-  <div id="app">
-    <div class="todo-container">
-       <div class="todo-wrap">
-         <my-header :addTodo="addTodo"></my-header>
-         <list :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"></list>
-         <my-footer :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"></my-footer>
-       </div>
-    </div>
+  <div class="app">
+    <h1>{{msg}}</h1>
+    <!-- 通過父組件給組件傳遞函數類型的props實現,子給父傳遞事件 -->
+    <school :getSchoolName="getSchoolName"></school>
+    <!-- 通過父組件給組件綁定一個自訂義事件:子給父傳遞事件 -->
+    <!-- <student @mimi="getStudentName"></student> -->
+    
+    <!-- 通過父組件給組件綁定一個自訂義事件:子給父傳遞事件(第二種寫法使用ref) -->
+    <student ref="student"></student>
   </div>
 </template>
 
 <script>
-import myFooter from './components/myFooter.vue'
-import myHeader from './components/myHeader.vue'
-import list from './components/list.vue'
+  import student from './components/student.vue'
+  import School from './components/school.vue'
 
-export default {
-  name:'App',
-  components:{
-    myFooter,
-    myHeader,
-    list
-  },
-  data() {
-      return {
-        todos:[
-                {id:'001',title:'打code',done:true},
-                {id:'002',title:'看小說',done:false},
-                {id:'003',title:'學習vue全家桶',done:true}
-              ]      
-        }
+  export default {
+    name:'App',
+    components:{
+      student,School
     },
-  methods:{
-    // 添加一個todo
-    addTodo(x){
-      this.todos.unshift(x)
-    },
-    // 取消勾選
-    checkTodo(id){
-      this.todos.forEach((todo)=>{
-        if(todo.id===id)todo.done=!todo.done
-      })
-    },
-    // 刪除項目
-    deleteTodo(id){
-      this.todos=this.todos.filter((todo)=>{
-          return todo.id!==id
-      })
-    },
-    // 全選或全不選
-    checkAllTodo(done){
-      this.todos.forEach((todo)=>{
-         todo.done=done
-        })
+    data() {
+        return {
+            msg:'你好阿!!'
+          }
       },
-    // 當刪除全部任務時列表清空
-    clearAllTodo(){
-      this.todos=this.todos.filter((todo)=>{
-        return !todo.done
-      })
-    } 
+    methods:{
+      getSchoolName(name){
+        console.log('app收到學校名',name)
+      },
+      getStudentName(name){
+        console.log('app收到學生名',name)
+      }
+    },
+    mounted(){
+        this.$refs.student.$on('mimi',this.getStudentName)
+    },
   }
-}
 </script>
 
-<style>
-   body{
-     background: #fff;
-   }
-   .btn{
-     display: inline-block;
-     padding:4px 12px;
-     margin-bottom: 0px;
-     font-size: 14px;
-     line-height: 20px;
-     text-align: center;
-     vertical-align: middle;
-     cursor: pointer;
-     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),0 1px 2px rgba(0, 0, 245, 0.32);
-     border-radius: 4px;
-   }
-   .btn-danger{
-     color:#fff;
-     background-color: #da4f49;
-     border:1px solid #bd362f;
-   }
-   .btn-danger:hover{
-     color:#fff;
-     background-color: #bd362f;
-   }
-   .btn:focus{
-     outline: none;
-   }
-   .todo-container{
-     width: 600px;
-     margin:0 auto;
-   }
-   .todo-container .todo-wrap{
-     padding:10px;
-     border:1px solid #ddd;
-     border-radius: 5px;
-   }
+<style scoped>
+  .app{
+    background-color: gray;
+    padding: 5px;
+  }
 </style>
