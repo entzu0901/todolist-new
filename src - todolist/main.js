@@ -8,6 +8,6 @@ new Vue({
   el: '#app',
   render: h => h(App),
   beforeCreate() {
-    Vue.prototype.$bus= this  //安裝全局事件總線
+    Vue.prototype.$bus=this
   },
 })

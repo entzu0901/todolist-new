@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import pubsub from 'pubsub-js'
 import myFooter from './components/myFooter.vue'
 import myHeader from './components/myHeader.vue'
 import list from './components/list.vue'
@@ -38,11 +39,17 @@ export default {
         if(todo.id===id)todo.done=!todo.done
       })
     },
-    // 刪除項目
-    deleteTodo(id){
-      this.todos=this.todos.filter((todo)=>{
-          return todo.id!==id
+    // 更新一個todo
+    updateTodo(id,title){
+      this.todos.forEach((todo)=>{
+        if(todo.id===id)todo.title=title
       })
+    },
+    // 刪除項目
+    deleteTodo(_,id){
+      this.todos=this.todos.filter(todo=>
+           todo.id!== id
+      )
     },
     // 全選或全不選
     checkAllTodo(done){
@@ -67,11 +74,13 @@ export default {
     },
   mounted(){
     this.$bus.$on('checkTodo',this.checkTodo)
-    this.$bus.$on('deleteTodo',this.deleteTodo)
+    this.$bus.$on('updateTodo',this.updateTodo)
+    this.pubId=pubsub.subscribe('deleteTodo',this.deleteTodo)
   },
   beforeDestroy(){
     this.$bus.$off('checkTodo')
-    this.$bus.$off('deleTodo')
+    pubsub.unsubscribe(this.pubId)
+    this.$bus.$off('updateTodo')
   }
 }
 </script>
@@ -96,6 +105,12 @@ export default {
      color:#fff;
      background-color: #da4f49;
      border:1px solid #bd362f;
+   }
+    .btn-edit{
+     color:#fff;
+     background-color: skyblue;
+     border:1px solid rgba(103, 159, 180);
+     margin-right: 5px;
    }
    .btn-danger:hover{
      color:#fff;

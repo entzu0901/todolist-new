@@ -32,7 +32,7 @@ export default {
     },
     methods:{
         clearAll(){
-            this.$emit('claerAllTodo')
+            this.$emit('clearAllTodo')
         }
     }
 }
