@@ -39,6 +39,12 @@ export default {
         if(todo.id===id)todo.done=!todo.done
       })
     },
+    // 更新一個todo
+    updateTodo(id,title){
+      this.todos.forEach((todo)=>{
+        if(todo.id===id)todo.title=title
+      })
+    },
     // 刪除項目
     deleteTodo(_,id){
       this.todos=this.todos.filter(todo=>
@@ -68,12 +74,13 @@ export default {
     },
   mounted(){
     this.$bus.$on('checkTodo',this.checkTodo)
+    this.$bus.$on('updateTodo',this.updateTodo)
     this.pubId=pubsub.subscribe('deleteTodo',this.deleteTodo)
   },
   beforeDestroy(){
     this.$bus.$off('checkTodo')
     pubsub.unsubscribe(this.pubId)
-  
+    this.$bus.$off('updateTodo')
   }
 }
 </script>

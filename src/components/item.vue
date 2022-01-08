@@ -3,10 +3,11 @@
       <li>
           <label>
               <input type="checkbox" :checked="todo.done" @click="handle(todo.id)">
-              <span>{{todo.title}}</span>
+              <span v-show="!todo.isEdit">{{todo.title}}</span>
+              <input type="text" v-show="todo.isEdit"  :value="todo.title" @blur="handleBlur(todo,$event)" ref="inputTitle">
           </label>
           <button class="btn btn-danger" @click="remove(todo.id)">刪除</button>
-          <button class="btn btn-edit" >編輯</button>
+          <button  v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">編輯</button>
       </li>
     </div>
 </template>
@@ -30,6 +31,22 @@ export default {
                 // this.$bus.$emit('deleteTodo',id)
                 pubsub.publish('deleteTodo',id)
             }
+        },
+        // 編輯
+        handleEdit(todo){
+            if(todo.hasOwnProperty('isEdit')){
+                todo.isEdit=true
+            }else{
+                this.$set(todo,'isEdit',true)
+            }
+            this.$nextTick(function(){
+                this.$refs.inputTitle.focus()
+            })    
+        },
+        // 失去焦點回調
+        handleBlur(todo,e){
+            todo.isEdit=false
+            this.$bus.$emit('updateTodo',todo.id,e.target.value)
         }
     }
 }
