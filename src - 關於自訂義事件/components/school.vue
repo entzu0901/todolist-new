@@ -20,7 +20,7 @@
         props:['getSchoolName'],
         methods: {
            sendSchoolName(){
-               this.getSchoolName(this.name)
+               this.getSchoolName(this.schoolName)
            }
         },
     }
