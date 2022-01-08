@@ -2,9 +2,9 @@
   <div id="app">
     <div class="todo-container">
        <div class="todo-wrap">
-         <my-header :addTodo="addTodo"></my-header>
+         <my-header @addTodo="addTodo"></my-header>
          <list :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"></list>
-         <my-footer :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"></my-footer>
+         <my-footer :todos="todos" @checkAllTodo="checkAllTodo" @clearAllTodo="clearAllTodo"></my-footer>
        </div>
     </div>
   </div>

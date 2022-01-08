@@ -8,7 +8,6 @@
 import {nanoid} from 'nanoid'
 export default {
     name:'myHeader',
-    props:['addTodo'],
     data() {
         return {
             title:''
@@ -23,7 +22,7 @@ export default {
                 id:nanoid(),title:this.title,done:false
             }
             // 通知app組件去添加一個todo對象
-            this.addTodo(todoObj)
+            this.$emit('addTodo',todoObj)
             // 清空輸入
             this.title=''
         }
