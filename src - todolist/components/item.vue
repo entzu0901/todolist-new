@@ -13,17 +13,19 @@
 <script>
 export default {
     name:'item',
-    props:['todo','checkTodo','deleteTodo'],
+    props:['todo'],
     methods:{
         // 勾選or取消勾選
         handle(id){
             // 通知app組件將對應的todo對象中的done值取反
-            this.checkTodo(id)
+            // this.checkTodo(id)
+            this.$bus.$emit('checkTodo',id)
         },
         // 刪除
         remove(id){
             if(confirm('確認刪除嗎')){
-                this.deleteTodo(id)
+                // this.deleteTodo(id)
+                this.$bus.$emit('deleteTodo',id)
             }
         }
     }
