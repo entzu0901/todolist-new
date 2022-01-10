@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name:'search',
     data() {
@@ -19,16 +20,16 @@ export default {
     methods:{
         getUser(){
             this.$bus.$emit('userList',{isFirst:false,isLoading:true,errMsg:'',users:[]})
-            this.$http.get(`https://api.github.com/search/users?q=${this.keyword}`).then(
+            axios.get(`https://api.github.com/search/users?q=${this.keyword}`).then(
                 response=>{console.log('請求成功了')
                 this.$bus.$emit('userList',{isLoading:false,errMsg:'',users:response.data.items})},
                 error=>{
                     console.log('請求失敗了',error.message)
                     this.$bus.$emit('userList',{isLoading:false,errMsg:error.message,users:[]})
-                })  
-            }
+                })
         }
     }
+}
 </script>
 
 <style>
