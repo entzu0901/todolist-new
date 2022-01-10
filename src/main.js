@@ -3,11 +3,14 @@ import Vue from 'vue'
 import App from './App.vue'
 // import VueResource from 'vue-resource'
 // Vue.use(VueResource)
+// 引入store
+import store from './store/index.js'
 
 // 創建vue
 new Vue({
   el: '#app',
   render: h => h(App),
+  store,
   beforeCreate() {
     Vue.prototype.$bus=this
   },

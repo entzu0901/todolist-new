@@ -9,7 +9,9 @@ import count from './components/count.vue'
 export default {
   name:'app',
   components:{count},
-
+  mounted(){
+    console.log('app',this)
+  }
 }
 </script>
 

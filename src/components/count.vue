@@ -39,6 +39,9 @@ export default {
                 this.sum+=this.number
             },500)
         }
+    },
+    mounted(){
+        console.log('count',this)
     }
 }
 </script>
