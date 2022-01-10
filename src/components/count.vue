@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h3>當前求和為{{sum}}</h3>
+      <h3>當前求和為{{$store.state.sum}}</h3>
       <select v-model.number="number">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -18,25 +18,24 @@ export default {
     name:'count',
     data() {
         return {
-            sum:0,
             number:1
         }
     },
     methods:{
         plus(){
-            this.sum+=this.number
+           this.$store.commit('JIA',this.number)
         },
         decrement(){
-            this.sum-=this.number
+           this.$store.commit('JIAN',this.number)
         },
         odd(){
-            if(this.sum%2){
-                this.sum+=this.number
+            if(this.$store.state.sum%2){
+                this.$store.dispatch('jia',this.number)
             }
         },
         wait(){
             setTimeout(()=>{
-                this.sum+=this.number
+               this.$store.dispatch('jia',this.number)
             },500)
         }
     },
