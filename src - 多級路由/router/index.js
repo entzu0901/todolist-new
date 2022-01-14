@@ -4,12 +4,10 @@ import About from '../pages/about.vue'
 import Home from '../pages/home.vue'
 import news from '../pages/news.vue'
 import message from '../pages/message.vue'
-import Detail from '../pages/Detail.vue'
 // 創建並暴露一個路由器
 export default  new VueRouter({
     routes:[
         {
-            name:'about',
             path:'/about',
             component:About
         },
@@ -19,18 +17,11 @@ export default  new VueRouter({
             children:[
             {
                 path:'news',
-                component:news,
+                component:news
             },
             {
                 path:'message',
-                component:message,
-                children:[
-                    {
-                        name:'detail',
-                        path:'Detail/:id/:title',
-                        component:Detail
-                    }
-                ]
+                component:message
             }
         ]
      }
