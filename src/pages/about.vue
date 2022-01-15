@@ -9,8 +9,8 @@
         // beforeDestroy(){
         //     console.log('about組件即將被銷毀了')
         // },
-        // mounted(){
-        //   console.log('about組件掛載完畢了',this)
-        // }
+        mounted(){
+          console.log(this.$route)
+        }
     }
 </script>
