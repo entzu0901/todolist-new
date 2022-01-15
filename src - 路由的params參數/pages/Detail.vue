@@ -12,7 +12,6 @@
 <script>
 export default {
     name:'Detail',
-    props:['id','title'],
     mounted(){
         // console.log(this.$route)
     },

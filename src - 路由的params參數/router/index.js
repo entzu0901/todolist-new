@@ -28,13 +28,7 @@ export default  new VueRouter({
                     {
                         name:'detail',
                         path:'Detail/:id/:title',
-                        component:Detail,
-                        // props:true,
-                        // props值為布林值,若為真會把該路由組件所有的params參數,以props形式傳給details組件
-                        // 第三種寫法props為函數
-                        props($route){
-                            return {id:$route.params.id,title:$route.params.title}
-                        }
+                        component:Detail
                     }
                 ]
             }
