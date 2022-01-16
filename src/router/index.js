@@ -7,6 +7,7 @@ import message from '../pages/message.vue'
 import Detail from '../pages/Detail.vue'
 // 創建並暴露一個路由器
 const router = new VueRouter({
+    mode:history,
     routes:[
         {
             name:'about',
@@ -24,7 +25,22 @@ const router = new VueRouter({
                 name:'hot',
                 path:'news',
                 component:news,
-                meta:{isAuth:true,title:'新聞'}
+                meta:{isAuth:true,title:'新聞'},
+                // 獨享路由守衛
+                beforeEnter: (to, from, next) => {
+                    console.log(to,from)
+                        if(to.meta.isAuth){ //判斷是否需要權限
+                            if(localStorage.getItem('school')==='blibli'){
+                                document.title=to.meta.title||'首頁'
+                                next()
+                            }else{
+                                alert('學校名不對,無權限查看')
+                            }
+                        }else{
+                            document.title=to.meta.title||'首頁'
+                            next()
+                        }
+                }
             },
             {
                 name:'love',
@@ -51,20 +67,20 @@ const router = new VueRouter({
   ]
 })
 // 全局前置路由守衛-初始化的時候被調用,每次路由切換之前被調用
-router.beforeEach((to,from,next)=>{
-    console.log(to,from)
-    if(to.meta.isAuth){ //判斷是否需要權限
-        if(localStorage.getItem('school')==='blibli'){
-            document.title=to.meta.title||'首頁'
-            next()
-        }else{
-            alert('學校名不對,無權限查看')
-        }
-    }else{
-        document.title=to.meta.title||'首頁'
-        next()
-    }
-})
+// router.beforeEach((to,from,next)=>{
+//     console.log(to,from)
+//     if(to.meta.isAuth){ //判斷是否需要權限
+//         if(localStorage.getItem('school')==='blibli'){
+//             document.title=to.meta.title||'首頁'
+//             next()
+//         }else{
+//             alert('學校名不對,無權限查看')
+//         }
+//     }else{
+//         document.title=to.meta.title||'首頁'
+//         next()
+//     }
+// })
 // 全局後置路由守衛-初始化的時候被調用,每次路由切換之後被調用
 router.afterEach((to,from)=>{
     console.log('後置路由守衛',to,from)
